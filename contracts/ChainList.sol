@@ -37,11 +37,14 @@ contract ChainList {
         owner = msg.sender;
     }
 
-    // deactivate the contract
-    function kill() public {
-        // only allow the contract owner
+    // modifiers
+    modifier onlyOwner() {
         require(msg.sender == owner);
+        _;  // this is a placeholder for the code that modifier is applied to
+    }
 
+    // deactivate the contract
+    function kill() public onlyOwner { 
         selfdestruct(owner);
     }
 
