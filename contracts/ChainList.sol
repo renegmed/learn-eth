@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.24;
 
 import "./Ownable.sol";
 
@@ -10,7 +10,7 @@ contract ChainList is Ownable {
         address buyer;
         string name;
         string description;
-        uint256 price;
+        uint price;
     }
  
     // state variables   
@@ -22,7 +22,7 @@ contract ChainList is Ownable {
         uint indexed _id,
         address indexed _seller,
         string _name,
-        uint256 _price
+        uint _price
     );
 
     event LogBuyArticle(
@@ -30,7 +30,7 @@ contract ChainList is Ownable {
         address indexed _seller,
         address indexed _buyer,
         string _name,
-        uint256 _price
+        uint _price
     );     
      
     // deactivate the contract
@@ -39,7 +39,11 @@ contract ChainList is Ownable {
     }
 
     // sell an article
-    function sellArticle(string _name, string _description, uint256 _price) public {
+    function sellArticle(string _name, string _description, uint _price) public {
+
+        require(bytes(_name).length > 0 && bytes(_description).length > 0);
+        require(_price > 0);
+        
         // a new article
         articleCounter++;
 
@@ -52,7 +56,7 @@ contract ChainList is Ownable {
             _description,
             _price
         );
-          
+        
         emit LogSellArticle(articleCounter, msg.sender, _name, _price);
     }
 
@@ -111,9 +115,8 @@ contract ChainList is Ownable {
 
         // the buyer can pay the seller
         article.seller.transfer(msg.value);
-
+ 
         // trigger the event
         emit LogBuyArticle(_id, article.seller, article.buyer, article.name, article.price);
-    }
-
+    } 
 }

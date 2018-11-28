@@ -13,6 +13,9 @@
   "author": "ChainSkills",
   "license": "ISC",
   "devDependencies": {
-    "lite-server": "^2.3.0"
+    "lite-server": "^2.3.0",
+    "chai": "^4.2.0",
+    "truffle": "4.1.11",
+    "truffle-assertions": "^0.6.3"
   }
 }
